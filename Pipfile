@@ -1,0 +1,14 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django-widget-tweaks = "~=1.4.8"
+django-allauth = "~=0.41.0"
+Django = "~=2.2.10"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
