@@ -3,6 +3,9 @@
 {% block content %}
 <div class="row my-4">
     <div class="col-md-8">
+        {% if keyword %}
+            <h4 class="mb-4">「{{ keyword }}の検索結果」</h4>
+        {% endif %}
         {% for post in post_data %}
             <div class="card mb-4">
                 {% if post.image %}
@@ -47,6 +50,16 @@
                         </div>
                     {% endfor %}
                 </div>
+            </div>
+        </div>
+
+        <div class="card my-4">
+            <h5 class="card-header">検索</h5>
+            <div class="card-body">
+                <form action="{% url 'search' %}" method="get" class="input-group">
+                    <input type="text" class="form-control" name="keyword", placeholder="ブログを検索...">
+                    <button class="btn btn-secondary ml-2" type="submit">検索</button>
+                </form>
             </div>
         </div>
     </div>
