@@ -1,5 +1,6 @@
 from functools import reduce
 from operator import and_
+import re
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
@@ -114,13 +115,9 @@ class SearchView(generic.View):
         kw = request.GET.get('keyword')
 
         if kw:
-            exclusion_list = set([' ', '　'])
-            query_list = ''
-            for word in kw:
-                if not word in exclusion_list:
-                    query_list += word
+            keywords = re.findall(r'\S+', kw)
             query = reduce(
-                and_, [Q(title__icontains=q) | Q(content__icontains=q) for q in query_list]
+                and_, [Q(title__icontains=kw) | Q(content__icontains=kw) for kw in keywords]
             )
             post_data = post_data.filter(query)
         return render(request, 'app/index.html', {
